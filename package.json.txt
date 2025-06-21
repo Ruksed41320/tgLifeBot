@@ -1,8 +1,0 @@
-{
-  "name": "telegram-netlify-app",
-  "version": "1.0.0",
-  "description": "Telegram Mini App hosted on Netlify",
-  "dependencies": {
-    "node-telegram-bot-api": "^0.66.0"
-  }
-}
