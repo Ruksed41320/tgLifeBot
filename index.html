@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>My Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100vh;
+            margin: 0;
+            color: var(--tg-theme-text-color, #000000);
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        p {
+            font-size: 18px;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1 id="welcome-title">Welcome!</h1>
+        <p id="user-info">Loading your information...</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.expand();
+            const titleElement = document.getElementById('welcome-title');
+            const userInfoElement = document.getElementById('user-info');
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                const user = tg.initDataUnsafe.user;
+                titleElement.textContent = `Hello, ${user.first_name || 'there'}!`;
+                userInfoElement.textContent = `Your user ID is: ${user.id}`;
+            } else {
+                userInfoElement.textContent = "Please open this app within Telegram.";
+            }
+            tg.setHeaderColor(tg.backgroundColor);
+        });
+    </script>
+</body>
+</html>
